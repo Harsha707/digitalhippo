@@ -45,16 +45,16 @@ export const Users: CollectionConfig = {
       relationTo: "products",
       hasMany: true,
     },
-    // {
-    //   name: "product_files",
-    //   label: "Product files",
-    //   admin: {
-    //     condition: () => false,
-    //   },
-    //   type: "relationship",
-    //   relationTo: "product_files",
-    //   hasMany: true,
-    // },
+    {
+      name: "product_files",
+      label: "Product files",
+      admin: {
+        condition: () => false,
+      },
+      type: "relationship",
+      relationTo: "product_files",
+      hasMany: true,
+    },
     {
       name: "role",
       defaultValue: "user",
