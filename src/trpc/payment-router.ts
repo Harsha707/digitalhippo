@@ -29,23 +29,38 @@ export const paymentRouter = router({
 
       const filteredProducts = products.filter((prod) => Boolean(prod.priceId));
 
-      const order = await payload.create({
-        collection: "orders",
-        data: {
-          _isPaid: false,
-          products: filteredProducts.map((prod) => prod.id),
-          user: user.id,
-        },
-      });
+const order = await payload.create({
+  collection: "orders",
+  data: {
+    _isPaid: false,
+    // Ensure product IDs are all strings
+    products: filteredProducts.map((prod) => {
+      if (typeof prod.id === 'number') {
+        return prod.id.toString(); // Convert number to string
+      }
+      if (typeof prod.id === 'string') {
+        return prod.id; // Return string as is
+      }
+      throw new Error(`Invalid product id: ${prod.id}`); // Handle any unexpected cases
+    }),
+    user: user.id,
+  },
+});
+
 
       const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
       filteredProducts.forEach((product) => {
-        line_items.push({
-          price: product.priceId!,
-          quantity: 1,
-        });
-      });
+  // Ensure priceId is treated as a string
+  if (typeof product.priceId === 'string') {
+    line_items.push({
+      price: product.priceId, // Correctly typed as string
+      quantity: 1,
+    });
+  } else {
+    throw new Error(`Invalid priceId: ${product.priceId}`); // Handle invalid cases
+  }
+});
 
       line_items.push({
         price: "price_1Oo4Y0SIsm0zeUEXKRFnFUVm",
