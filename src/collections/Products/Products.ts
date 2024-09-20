@@ -138,13 +138,17 @@ export const Products: CollectionConfig = {
     {
       name: "name",
       label: "Name",
-      type: "text",
+      type: "richText",
       required: true,
     },
     {
       name: "description",
-      type: "textarea",
+      type: "richText",
       label: "Product details",
+    },
+    {
+      name: "richText",
+      type: "richText",
     },
     {
       name: "price",
