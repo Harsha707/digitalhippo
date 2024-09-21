@@ -2,7 +2,6 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
-     "noEmitOnError": false,
     "outDir": "dist",
     "noEmit": false,
     "jsx": "react"
