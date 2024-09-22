@@ -25,7 +25,6 @@ export const Media: CollectionConfig = {
       },
     ],
   },
-  admin: { hidden: ({ user }) => user.role !== "admin" },
   access: {
     read: async ({ req }) => {
       const referer = req.headers.referer;
@@ -38,6 +37,9 @@ export const Media: CollectionConfig = {
     },
     delete: isAdminOrHasAccessToImages(),
     update: isAdminOrHasAccessToImages(),
+  },
+  admin: {
+    hidden: ({ user }) => user.role !== "admin",
   },
   upload: {
     staticURL: "/media",

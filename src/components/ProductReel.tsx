@@ -1,6 +1,6 @@
 "use client";
 
-import { TQueryValidator } from "@/lib/validators/quary-validator";
+import { TQueryValidator } from "@/lib/validators/query-validator";
 import { Product } from "@/payload-types";
 import { trpc } from "@/trpc/client";
 import Link from "next/link";
@@ -21,7 +21,7 @@ const ProductReel = (props: ProductReelProps) => {
   const { data: queryResults, isLoading } =
     trpc.getInfiniteProducts.useInfiniteQuery(
       {
-        limit: query?.limit ?? FALLBACK_LIMIT,
+        limit: query.limit ?? FALLBACK_LIMIT,
         query,
       },
       {
@@ -35,7 +35,7 @@ const ProductReel = (props: ProductReelProps) => {
   if (products && products.length) {
     map = products;
   } else if (isLoading) {
-    map = new Array<null>(query?.limit ?? FALLBACK_LIMIT).fill(null);
+    map = new Array<null>(query.limit ?? FALLBACK_LIMIT).fill(null);
   }
 
   return (

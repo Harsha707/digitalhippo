@@ -1,8 +1,7 @@
 import { buildConfig } from "payload/config";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
-// import { slateEditor } from "@payloadcms/richtext-slate";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { slateEditor } from "@payloadcms/richtext-slate";
 import path from "path";
 import { Users } from "./collections/Users";
 import dotenv from "dotenv";
@@ -33,7 +32,7 @@ export default buildConfig({
   rateLimit: {
     max: 2000,
   },
-  editor: lexicalEditor({}),
+  editor: slateEditor({}),
   db: mongooseAdapter({
     url: process.env.MONGODB_URL!,
   }),

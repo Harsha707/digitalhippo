@@ -10,7 +10,7 @@ import { stripe } from "../../lib/stripe";
 const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
   const user = req.user;
 
-  return { ...data };
+  return { ...data, user: user.id };
 };
 
 const syncUser: AfterChangeHook<Product> = async ({ req, doc }) => {
@@ -90,7 +90,8 @@ export const Products: CollectionConfig = {
       async (args) => {
         if (args.operation === "create") {
           const data = args.data as Product;
-          const createProduct = await stripe.products.create({
+
+          const createdProduct = await stripe.products.create({
             name: data.name,
             default_price_data: {
               currency: "USD",
@@ -100,8 +101,8 @@ export const Products: CollectionConfig = {
 
           const updated: Product = {
             ...data,
-            stripeId: createProduct.id,
-            priceId: createProduct.default_price as string,
+            stripeId: createdProduct.id,
+            priceId: createdProduct.default_price as string,
           };
 
           return updated;
@@ -138,17 +139,13 @@ export const Products: CollectionConfig = {
     {
       name: "name",
       label: "Name",
-      type: "richText",
+      type: "text",
       required: true,
     },
     {
       name: "description",
-      type: "richText",
+      type: "textarea",
       label: "Product details",
-    },
-    {
-      name: "richText",
-      type: "richText",
     },
     {
       name: "price",

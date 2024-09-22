@@ -1,7 +1,6 @@
 import { User } from "../payload-types";
 import { BeforeChangeHook } from "payload/dist/collections/config/types";
 import { Access, CollectionConfig } from "payload/types";
-import { Products } from "./Products/Products";
 
 const addUser: BeforeChangeHook = ({ req, data }) => {
   const user = req.user as User | null;
@@ -9,10 +8,9 @@ const addUser: BeforeChangeHook = ({ req, data }) => {
 };
 
 const yourOwnAndPurchased: Access = async ({ req }) => {
-  const user = req.user as User;
+  const user = req.user as User | null;
 
-  if (user.role === "admin") return true;
-
+  if (user?.role === "admin") return true;
   if (!user) return false;
 
   const { docs: products } = await req.payload.find({

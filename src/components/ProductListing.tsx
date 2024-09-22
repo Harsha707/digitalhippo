@@ -14,7 +14,7 @@ interface ProductListingProps {
 }
 
 const ProductListing = ({ product, index }: ProductListingProps) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {

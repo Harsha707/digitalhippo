@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import type { InitOptions } from "payload/config";
 import path from "path";
+import type { InitOptions } from "payload/config";
 import payload, { Payload } from "payload";
 import nodemailer from "nodemailer";
 

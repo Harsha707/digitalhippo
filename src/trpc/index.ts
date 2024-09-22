@@ -1,7 +1,7 @@
-import { object, z } from "zod";
+import { z } from "zod";
 import { authRouter } from "./auth-router";
 import { publicProcedure, router } from "./trpc";
-import { QueryValidator } from "../lib/validators/quary-validator";
+import { QueryValidator } from "../lib/validators/query-validator";
 import { getPayloadClient } from "../get-payload";
 import { paymentRouter } from "./payment-router";
 

@@ -7,7 +7,7 @@ import { Product } from "@/payload-types";
 
 const AddToCartButton = ({ product }: { product: Product }) => {
   const { addItem } = useCart();
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
